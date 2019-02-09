@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ol>
+        {% for submission in submissions %}
+            <li><a href="{{ submission.url }}">{{ submission.title }}</a></li>
+        {% endfor %}
+    </ol>
+{% endblock %}

@@ -1,12 +1,14 @@
 <?php declare(strict_types=1);
 
+use FastRoute\Dispatcher;
 use Symfony\Component\HttpFoundation\Response;
+use Tracy\Debugger;
 
 define('ROOT_DIR', dirname(__DIR__));
 
 require ROOT_DIR . '/vendor/autoload.php';
 
-\Tracy\Debugger::enable();
+Debugger::enable();
 
 $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
 
@@ -19,7 +21,7 @@ $dispatcher = \FastRoute\cachedDispatcher(
       }
   }, [
     'cacheFile' => ROOT_DIR . '/tmp/cache/routes.cache',
-    'cacheDisabled' => \Tracy\Debugger::isEnabled(),
+    'cacheDisabled' => Debugger::isEnabled(),
   ]
 );
 
@@ -29,19 +31,19 @@ $routeInfo = $dispatcher->dispatch(
 );
 
 switch ($routeInfo[0]) {
-    case \FastRoute\Dispatcher::NOT_FOUND:
+    case Dispatcher::NOT_FOUND:
         $response = new Response(
           'Not Found',
           404
         );
         break;
-    case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+    case Dispatcher::METHOD_NOT_ALLOWED:
         $response = new Response(
           'Method Not Allowed',
           405
         );
         break;
-    case \FastRoute\Dispatcher::FOUND:
+    case Dispatcher::FOUND:
         [$controllerName, $method] = explode('#', $routeInfo[1]);
         $params = $routeInfo[2];
 
