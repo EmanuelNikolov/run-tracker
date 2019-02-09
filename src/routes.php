@@ -1,15 +1,18 @@
 <?php
 declare(strict_types=1);
 
+use RunTracker\FrontPage\Presentation\FrontPageController;
+use RunTracker\Submission\Presentation\SubmissionController;
+
 return [
   [
-    \Symfony\Component\HttpFoundation\Request::METHOD_GET,
+    'GET',
     '/',
-    \RunTracker\FrontPage\Presentation\FrontPageController::class . '#show',
+    FrontPageController::class . '#show',
   ],
   [
-    \Symfony\Component\HttpFoundation\Request::METHOD_GET,
+    'GET',
     '/submit',
-    \RunTracker\Submission\Presentation\SubmissionController::class . '#show',
+    SubmissionController::class . '#show',
   ],
 ];

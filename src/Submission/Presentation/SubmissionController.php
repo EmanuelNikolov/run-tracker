@@ -6,7 +6,7 @@ namespace RunTracker\Submission\Presentation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SubmissionController
+final class SubmissionController
 {
 
     public function show(Request $request): Response
